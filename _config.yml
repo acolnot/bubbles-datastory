@@ -1,9 +1,4 @@
 theme: jekyll-theme-minimal
 title: Back to the Future of Bubbles
 description: A Time-Traveling Expedition Through Decades of Market Crashes
-show_downloads: True
-navigation:
-  - title: Home
-    url: /
-  - title: Example
-    url: example
+show_downloads: False
