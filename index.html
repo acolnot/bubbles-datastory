@@ -2,33 +2,78 @@
 layout: bttf
 ---
 
-<div style="max-width: 800px; margin: 0 auto; padding: 40px 20px; line-height: 1.6;">
+<div style="max-width: 800px; margin: 0 auto; padding: 20px 10px; line-height: 1.65;">
 
-  <div style="text-align: center; margin-bottom: 40px;">
-    <h1 style="font-size: 2.5rem; color: #13184b; margin-bottom: 10px;">Back to the Future of Bubbles</h1>
-    <p style="font-size: 1.0rem; color: #666;">A Time-Traveling Expedition Through Decades of Market Crashes</p>
+  <!-- Title  -->
+  <div style="text-align: center; margin-bottom: 30px;">
+    <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Back to the Future of Bubbles</h1>
+    <p style="font-style: italic; opacity: 0.85;">A Time-Traveling Expedition Through Decades of Market Crashes</p>
+
+    <!-- Page Jumps -->
+    <div style="margin-top: 20px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+      <a href="#bubble-def" style="background-color: #C05212; color: #fdfbf7; padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: bold;"> What is a Bubble?</a>
+      <a href="#bubble-detect" style="background-color: #C05212; color: #fdfbf7; padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: bold;"> Building the Bubble Radar</a>
+    </div>
   </div>
 
-  <hr style="border: none; border-top: 1px solid #C05212;; margin: 30px 0;">
+  <hr>
 
-  <h2 style="color: #2c3e50;">Hey there!</h2>
+  <!-- Section 1: Intro -->
+  <section id="intro">
+    <h2>Hey there!</h2>
   
-  <p>If you're reading this it probably means you're lost in the current stock market.<br>
-  Are you trying to understand what is currently happening in the financial world by anxiously checking the price of an NVIDIA stock every hour?</p> 
+    <p>If you're reading this it probably means you're lost in the current stock market.<br>
+    Are you trying to understand what is currently happening in the financial world by anxiously checking the price of an NVIDIA stock every hour?</p> 
 
-  <p>Then you're looking at the markets all wrong! To understand why prices soar and crash today, we can't just look at the present. We have to go back—back to the birth of the modern NASDAQ and beyond to see how market cycles truly behave!</p>
+    <p>Then you're looking at the markets all wrong! To understand why prices soar and crash today, we can't just look at the present. We have to go back—back to the birth of the modern NASDAQ and beyond to see how market cycles truly behave!</p>
 
-  <p>Grab your flux capacitor. We are taking a data-driven journey through history to decode how market bubbles inflate, pop, and repeat.</p>
+    <p>Grab your flux capacitor. We are taking a data-driven journey through history to decode how market bubbles inflate, pop, and repeat.</p>
 
-  <hr style="border: none; border-top: 1px solid #C05212;; margin: 40px 0;">
+    </section>
 
-  <div style="text-align: center; padding: 30px 0;">
-    <h3 style="margin-bottom: 15px; color: #13184b;">Ready to begin the journey?</h3>
-    <p style="color: #13184b; margin-bottom: 25px;">But don't be to eager, first we need to understand the mechanics of a bubble before jumping into the timeline.</p>
+    <hr>
+
+  <!-- Section 2: Theory & Detection -->
+  <section id="bubble-def">
+      <h3>But What is a Bubble? </h3>
+        <p>
+            At its core, a positive bubble happens when a stock's market price stays persistently above its fundamental value.
+        </p>
+        <p>
+            But don't be scared of all that gibberish just now, simply think of market price as what traders are willing to pay right now, and fundamental value as what the business is worth based on expected future cash flows or dividends and the risk investors take.
+        </p>
+
+        <p>
+            However estimating fundamental value requires assumptions about future earnings, cash flows, and discount rates. Even ratios like Price-to-Sales can look high simply because investors expect strong future growth.
+        </p>
+         <p>
+            So instead of claiming we can observe "true" value directly, we must build a detector that asks a sharper, testable question: <strong>does a stock's price show statistical evidence of explosive behavior during certain periods?</strong>
+        </p>
+    </section>
+
+    <hr>
     
-    <a href="theory.html" style="display: inline-block; color: #fdfbf7; padding: 14px 32px; font-size: 1.1rem; font-weight: bold; text-decoration: none; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.2s;">
-     Onto the maths !
-    </a>
-  </div>
+    <section id="bubble-detect">
 
-</div>
+        <h3>Building the Bubble Radar™</h3>
+        <p>
+            We want to detect bubbles so it is only fair we build a special tool : a Bubble Radar™.
+        </p>
+        <p> A single test over decades of data can miss short-lived run-ups, so we use the <strong>Generalized Supremum Augmented Dickey&ndash;Fuller (GSADF)</strong> test alongside the <strong>Backward Supremum ADF (BSADF)</strong> sequence.</p>
+        <ul style="font-family: 'Share Tech Mono', monospace; padding-left: 22px;">
+            <li style="margin-bottom: 10px;"><strong>Scanning overlapping windows:</strong> Instead of looking at just one fixed timeframe, GSADF tests across many sub-windows of different lengths and dates to catch episodes where log prices accelerate explosively.</li>
+            <li style="margin-bottom: 10px;"><strong>Dating the episodes:</strong> BSADF tracks across endpoints to help pinpoint when explosive behavior appears and fades.</li>
+        </ul>
+
+         <p><strong>But beware of our results!</strong></p>
+        <p>
+            Before thinking we have a foolproof method to detect bubbles we mustn't forget: our radar only detects candidate bubbles, passing our test flags evidence against a non-explosive baseline model, not automatic proof of a bubble or a guaranteed crash.
+        </p>
+        <p>
+            Before trusting any signal across decades, the data has to be reliable:
+        </p>
+        <ul style="font-family: 'Share Tech Mono', monospace; padding-left: 22px;">
+            <li style="margin-bottom: 10px;"><strong>Consistent histories:</strong> We rely on split-adjusted price histories (such as CRSP) and track securities carefully—including delisted firms and ticker changes—so corporate actions don't look like fake price explosions.</li>
+            <li><strong>Monte Carlo reality check:</strong> Testing many windows can create false alarms by chance. We compare observed statistics against simulated non-explosive random walks to measure statistical significance.</li>
+        </ul>
+    </section>
